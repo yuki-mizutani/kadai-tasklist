@@ -12,22 +12,6 @@
 
 ActiveRecord::Schema.define(version: 20180218081121) do
 
-  create_table "tasklist", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "content"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_tasklist_on_user_id", using: :btree
-  end
-
-  create_table "tasklist2s", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "content"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_tasklist2s_on_user_id", using: :btree
-  end
-
   create_table "tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "content"
     t.datetime "created_at", null: false
@@ -45,7 +29,5 @@ ActiveRecord::Schema.define(version: 20180218081121) do
     t.datetime "updated_at",      null: false
   end
 
-  add_foreign_key "tasklist", "users"
-  add_foreign_key "tasklist2s", "users"
   add_foreign_key "tasks", "users"
 end

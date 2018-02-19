@@ -13,16 +13,17 @@ class TasksController < ApplicationController
       render 'toppages/index'
     end
   end
+  
+  def edit
+    @tasks = Tasks.find(params[:id])
+  end
 
   def destroy
     @task.destroy
     flash[:success] = 'メッセージを削除しました。'
     redirect_back(fallback_location: root_path)
   end
-
-
-  private
-
+  
   def update
     @task = current_user.task.find(params[:id])
 
@@ -34,6 +35,10 @@ class TasksController < ApplicationController
       render :edit
     end
   end
+
+
+  private
+
   
   def task_params
     params.require(:task).permit(:content)

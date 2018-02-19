@@ -20,6 +20,10 @@ class TasksController < ApplicationController
   def edit
     @task = Task.find(params[:id])
   end
+  
+  def index
+   @tasks = Task.all.page(params[:page])
+  end
 
   def destroy
     @task.destroy

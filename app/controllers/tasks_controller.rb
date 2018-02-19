@@ -23,6 +23,18 @@ class TasksController < ApplicationController
 
   private
 
+  def update
+    @task = current_user.task.find(params[:id])
+
+    if @task.update
+      flash[:success] = 'メッセージ は正常に更新されました'
+      redirect_to @task
+    else
+      flash.now[:danger] = 'メッセージ は更新されませんでした'
+      render :edit
+    end
+  end
+  
   def task_params
     params.require(:task).permit(:content)
   end  

@@ -1,21 +1,24 @@
 class TasksController < ApplicationController
   before_action :require_user_logged_in
-  before_action :correct_user, only: [:destroy]
+  before_action :correct_user, only: [:destroy,:show]
 
   def create
     @task = current_user.tasks.build(task_params)
     if @task.save
       flash[:success] = 'メッセージを投稿しました。'
-      redirect_to root_url
+      redirect_to @task
     else
       @tasks = current_user.tasks.order('created_at DESC').page(params[:page])
       flash.now[:danger] = 'メッセージの投稿に失敗しました。'
       render 'toppages/index'
     end
   end
+  def show 
+    
+  end
   
   def edit
-    @tasks = Tasks.find(params[:id])
+    @task = Task.find(params[:id])
   end
 
   def destroy
@@ -25,9 +28,10 @@ class TasksController < ApplicationController
   end
   
   def update
-    @task = current_user.task.find(params[:id])
-
-    if @task.update
+    @task = current_user.tasks.find(params[:id])
+    # binding.pry
+    
+    if @task.update(task_params)
       flash[:success] = 'メッセージ は正常に更新されました'
       redirect_to @task
     else
@@ -41,7 +45,7 @@ class TasksController < ApplicationController
 
   
   def task_params
-    params.require(:task).permit(:content)
+    params.require(:task).permit(:content,:status)
   end  
      
   def correct_user

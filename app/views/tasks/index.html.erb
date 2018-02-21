@@ -6,6 +6,7 @@
   <% end %>
 </ul>
 
+
 <%= link_to '新規タスクの投稿', new_taskdef index
    @task = Task.all.page(params[:page])
  end_path %>
